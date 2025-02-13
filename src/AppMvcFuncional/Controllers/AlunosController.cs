@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using AppMvcFuncional.Data;
 using AppMvcFuncional.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AppMvcFuncional.Controllers
 {
+    [Authorize]
     [Route("meus-alunos")]
     public class AlunosController : Controller
     {
@@ -16,8 +18,10 @@ namespace AppMvcFuncional.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            ViewBag.Sucesso= "Listagem bem sucedida!";
               return _context.Alunos != null ? 
                           View(await _context.Alunos.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Alunos'  is null.");
@@ -103,6 +107,7 @@ namespace AppMvcFuncional.Controllers
                         throw;
                     }
                 }
+                TempData["Sucesso"]="Aluno editado com sucesso.";
                 return RedirectToAction(nameof(Index));
             }
             return View(aluno);

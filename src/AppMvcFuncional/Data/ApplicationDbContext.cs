@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using AppMvcFuncional.Models; // Importando o namespace onde a classe Aluno está definida
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using AppMvcFuncional.Models; 
 
 namespace AppMvcFuncional.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> 
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
